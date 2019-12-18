@@ -4,6 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    db_host: localhost
+    db_name: remonvs_paco
+    db_port: 3306
+    db_user: remonvs_paco
+    db_password: zsFyTZme
 
 services:
     # default configuration for services in *this* file
