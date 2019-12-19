@@ -18,8 +18,6 @@ class ScraperManager
     {
         $scrapers = $this->getActiveScrapers($scraper);
 
-        print_r($scraper);
-
         foreach ($scrapers as $scraper) {
             $scraper->scrape();
         }
@@ -29,10 +27,10 @@ class ScraperManager
     {
         if($scraperStrategy == ScraperInterface::ALL_SCRAPERS) return $this->getScrapers();
 
-        print_r($this->getScrapers());
-
         foreach ($this->getScrapers() as $scraper) {
-            if($scraperStrategy == $scraper->getKey()) return $scraper;
+            if($scraperStrategy == $scraper->getKey()) {
+                return [$scraper];
+            }
         }
 
         throw new InvalidArgumentException(sprintf('Any scraper found with key %s', $scraperStrategy));

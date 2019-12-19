@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 class ScraperPass implements CompilerPassInterface
 {
     const SERVICE_TAG_ID = 'app.scraper';
-    const SERVICE_MANAGER = ScraperManager::class;
+    const SERVICE_MANAGER = 'app.scraper.manager';
 
     public function process(ContainerBuilder $container)
     {
@@ -23,7 +23,6 @@ class ScraperPass implements CompilerPassInterface
         $definition = $container->findDefinition(self::SERVICE_MANAGER);
 
         foreach ($container->findTaggedServiceIds(self::SERVICE_TAG_ID) as $id => $tags) {
-            print_r(new Reference($id));
             $definition->addMethodCall('addScraper', [new Reference($id)]);
         }
     }

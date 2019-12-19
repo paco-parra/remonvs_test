@@ -1,5 +1,6 @@
 services:
   app.scraper.manager:
     class: App\Manager\ScraperManager
+    public: true
     tags:
       - { name: 'app.scraper.manager' }

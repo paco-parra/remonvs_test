@@ -19,7 +19,7 @@ class AutoScout24Scraper implements ScraperInterface
 
     public function scrape()
     {
-        print_r('Im in');
+        print_r(self::getKey());
         // TODO: Implement scrape() method.
     }
 

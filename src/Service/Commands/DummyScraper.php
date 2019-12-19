@@ -19,7 +19,8 @@ class DummyScraper implements ScraperInterface
 
     public function scrape()
     {
-        print_r('Im in');
+        print_r(self::getKey());
+        return "I'm in";
         // TODO: Implement scrape() method.
     }
 
