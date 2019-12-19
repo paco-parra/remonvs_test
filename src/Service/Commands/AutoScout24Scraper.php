@@ -5,11 +5,16 @@ namespace App\Service\Commands;
 
 use App\Model\Interfaces\ScraperInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DomCrawler\Crawler;
 
 class AutoScout24Scraper implements ScraperInterface
 {
     private $entityManager;
+    private $crawler;
+    private $elementsToScrape = [];
 
+    const BASE_URL = "https://www.autoscout24.de";
+    const URL_TO_SCRAPE = 'https://www.autoscout24.de/lst/audi/a6?sort=standard&amp;desc=0&amp;ustate=N%2CU&amp;cy=D&amp;fregfrom=2012&amp;atype=C&amp;ac=0&size=20&page=';
     const KEY = 'auto_scout';
 
     public function __construct(EntityManager $entityManager)
@@ -17,10 +22,12 @@ class AutoScout24Scraper implements ScraperInterface
         $this->entityManager = $entityManager;
     }
 
-    public function scrape()
+    public function scrape(int $numberOfPages = 5)
     {
-        print_r(sprintf("Executing %s scraper, please wait for completion \n", $this->getKey()));
-        // TODO: Implement scrape() method.
+        // Store all required elements to scrape in a array
+        $this->getElementsToScrape($numberOfPages);
+
+        print_r($this->elementsToScrape);
     }
 
     public function isValidCar(iterable $scrapedObject)
@@ -34,7 +41,28 @@ class AutoScout24Scraper implements ScraperInterface
         // TODO: Implement formatData() method.
     }
 
-    public function getKey()
+    public function getElementsToScrape(int $numberOfPages): void
+    {
+        $page = 1;
+        while($page <= $numberOfPages) {
+            $url = sprintf("%s%s", self::URL_TO_SCRAPE, $page);
+            print_r(sprintf("Scraping page %s with URL %s \n", $page, $url));
+            $this->crawler = new Crawler(file_get_contents($url));
+            $numberOfElements = $this->crawler->filterXPath('//div[@class="cl-list-element cl-list-element-gap"]')->count();
+
+            // Recursive call to avoid web page request blocking
+            if($numberOfElements == 0) continue;
+
+            $this->crawler->filterXPath('//div[@class="cl-list-element cl-list-element-gap"]')->each(function (Crawler $node) {
+                $link = $node->filterXPath('//a[@data-item-name="detail-page-link"]')->attr('href');
+                print_r(sprintf("URL %s from \n", $link));
+                $this->elementsToScrape[] = sprintf('%s%s', self::BASE_URL, $link);
+            });
+            $page++;
+        }
+    }
+
+    public function getKey(): string
     {
         return self::KEY;
     }

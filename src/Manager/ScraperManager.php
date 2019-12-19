@@ -14,12 +14,12 @@ class ScraperManager
     {
     }
 
-    public function scrape($scraper = ScraperInterface::ALL_SCRAPERS)
+    public function scrape($scraper = ScraperInterface::ALL_SCRAPERS, $numberOfPages = 5)
     {
         $scrapers = $this->getActiveScrapers($scraper);
 
         foreach ($scrapers as $scraper) {
-            $scraper->scrape();
+            $scraper->scrape((int) $numberOfPages);
         }
     }
 

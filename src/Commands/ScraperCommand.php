@@ -28,17 +28,17 @@ class ScraperCommand extends Command
             ->setName('app:scraper')
             ->setDescription('Execute scraper, all scrapers are executed by default')
             ->addOption('scraper', null, InputArgument::OPTIONAL, "Execute specific scraper, don't use if you want execute all", ScraperInterface::ALL_SCRAPERS)
+            ->addOption('number-of-pages', null, InputArgument::OPTIONAL, "Number of list pages that are scraped", 5)
         ;
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
         try {
-            $this->scraperManager->scrape($input->getOption('scraper'));
+            $this->scraperManager->scrape($input->getOption('scraper'), $input->getOption('number-of-pages'));
         } catch (\Exception $exception) {
             $output->write($exception);
         }
-
     }
 
 }

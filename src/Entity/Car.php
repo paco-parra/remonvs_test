@@ -18,7 +18,6 @@ class Car
      */
     private $id;
 
-
     /**
      * @ORM\Column(type="string")
      */
@@ -75,6 +74,11 @@ class Car
     private $externalId;
 
     /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $externalUrl;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Equipment")
      * @ORM\JoinTable(name="cars_equipment",
      *      joinColumns={@ORM\JoinColumn(name="car_id", referencedColumnName="id")},
@@ -91,6 +95,12 @@ class Car
      *      )
      */
     private $images;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Scrapers", inversedBy="cars", cascade={"persist"})
+     * @ORM\JoinColumn(name="scraper_id", referencedColumnName="id")
+     */
+    private $scraper;
 
     public function __construct()
     {
@@ -283,6 +293,22 @@ class Car
     }
 
     /**
+     * @return mixed
+     */
+    public function getExternalUrl(): string
+    {
+        return $this->externalUrl;
+    }
+
+    /**
+     * @param mixed $externalUrl
+     */
+    public function setExternalUrl(string $externalUrl): void
+    {
+        $this->externalUrl = $externalUrl;
+    }
+
+    /**
      * @param ArrayCollection $equipment
      */
     public function setEquipment($equipment)
@@ -329,4 +355,21 @@ class Car
             $this->images->removeElement($image);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getScraper():? Scrapers
+    {
+        return $this->scraper;
+    }
+
+    /**
+     * @param mixed $scraper
+     */
+    public function setScraper(Scrapers $scraper): void
+    {
+        $this->scraper = $scraper;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,8 +37,14 @@ class Scrapers
      */
     private $lastScrapeElements;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="scraper", cascade={"all"}, orphanRemoval=true)
+     */
+    private $cars;
+
     public function __construct()
     {
+        $this->cars = new ArrayCollection();
         $this->lastScrapDate = new \DateTime();
         $this->lastScrapeElements = 0;
         $this->scrapedElements = 0;
@@ -94,5 +101,23 @@ class Scrapers
         $this->lastScrapeElements = $lastScrapeElements;
 
         return $this;
+    }
+
+    public function addCar(Car $car): void
+    {
+        if (!$this->cars->contains($car)) {
+            $car->setScraper($this);
+            $this->cars->add($car);
+        }
+    }
+
+    public function setCars(ArrayCollection $cars): void
+    {
+        $this->cars = $cars;
+    }
+
+    public function getCars(): ?iterable
+    {
+        return $this->cars;
     }
 }

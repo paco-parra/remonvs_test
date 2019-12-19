@@ -5,6 +5,7 @@ namespace App\Service\Commands;
 
 use App\Model\Interfaces\ScraperInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DomCrawler\Crawler;
 
 class DummyScraper implements ScraperInterface
 {
@@ -17,7 +18,7 @@ class DummyScraper implements ScraperInterface
         $this->entityManager = $entityManager;
     }
 
-    public function scrape()
+    public function scrape(int $numberOfPages = 5)
     {
         print_r(sprintf("Executing %s scraper, please wait for completion \n", $this->getKey()));
         return "I'm in";
@@ -35,7 +36,11 @@ class DummyScraper implements ScraperInterface
         // TODO: Implement formatData() method.
     }
 
-    public function getKey()
+    public function getElementsToScrape(int $numberOfPages): void
+    {
+    }
+
+    public function getKey(): string
     {
         return self::KEY;
     }
