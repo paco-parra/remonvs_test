@@ -18,9 +18,14 @@ class Equipment
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $type;
 
     public function getId(): int
     {
@@ -42,4 +47,21 @@ class Equipment
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
+
 }

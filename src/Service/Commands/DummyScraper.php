@@ -40,6 +40,10 @@ class DummyScraper implements ScraperInterface
     {
     }
 
+    public function processElement(string $url)
+    {
+    }
+
     public function getKey(): string
     {
         return self::KEY;

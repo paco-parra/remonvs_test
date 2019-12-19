@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Model\Interfaces;
 
@@ -11,6 +12,8 @@ interface ScraperInterface
 
     // This function check if car scraped has the valid attributes
     public function isValidCar(iterable $scrapedObject);
+
+    public function processElement(string $url);
 
     // Format data to persist in database
     public function formatData(iterable $scrapedObject);

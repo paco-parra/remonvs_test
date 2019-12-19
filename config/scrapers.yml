@@ -1,7 +1,6 @@
 services:
   app.auto_scout_scraper.service:
     class: App\Service\Commands\AutoScout24Scraper
-#    public: true
     arguments:
       - "@doctrine.orm.entity_manager"
     tags:
@@ -9,7 +8,6 @@ services:
 
   app.dummy_scraper.service:
     class: App\Service\Commands\DummyScraper
-#    public: true
     arguments:
       - "@doctrine.orm.entity_manager"
     tags:
