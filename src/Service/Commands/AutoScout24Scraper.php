@@ -16,16 +16,17 @@ class AutoScout24Scraper implements ScraperInterface
     const BASE_URL = "https://www.autoscout24.de";
     const URL_TO_SCRAPE = 'https://www.autoscout24.de/lst/audi/a6?sort=standard&amp;desc=0&amp;ustate=N%2CU&amp;cy=D&amp;fregfrom=2012&amp;atype=C&amp;ac=0&size=20&page=';
     const KEY = 'auto_scout';
+    const LAST_PAGE = 20;
 
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    public function scrape(int $numberOfPages = 5)
+    public function scrape(int $numberOfPages = 5, int $startPage = 1)
     {
         // Store all required elements to scrape in a array
-        $this->getElementsToScrape($numberOfPages);
+        $this->getElementsToScrape($numberOfPages, $startPage);
 
         print_r($this->elementsToScrape);
     }
@@ -41,10 +42,12 @@ class AutoScout24Scraper implements ScraperInterface
         // TODO: Implement formatData() method.
     }
 
-    public function getElementsToScrape(int $numberOfPages): void
+    public function getElementsToScrape(int $numberOfPages, int $page = 1): void
     {
-        $page = 1;
-        while($page <= $numberOfPages) {
+        // Calculate last page starting in $page value
+        $lastPage = ($page + $numberOfPages) < self::LAST_PAGE ? ($page + $numberOfPages) : self::LAST_PAGE;
+
+        while($page <= $lastPage) {
             $url = sprintf("%s%s", self::URL_TO_SCRAPE, $page);
             print_r(sprintf("Scraping page %s with URL %s \n", $page, $url));
             $this->crawler = new Crawler(file_get_contents($url));
