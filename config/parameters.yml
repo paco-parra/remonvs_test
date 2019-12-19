@@ -1,0 +1,6 @@
+parameters:
+  db_host: localhost
+  db_name: remonvs_paco
+  db_port: 3306
+  db_user: remonvs_paco
+  db_password: zsFyTZme

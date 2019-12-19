@@ -1,0 +1,14 @@
+services:
+  app.auto_scout_scraper.service:
+    class: App\Service\Commands\AutoScout24Scraper
+    arguments:
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: 'app.scraper' }
+
+  app.dummy_scraper.service:
+    class: App\Service\Commands\DummyScraper
+    arguments:
+      - "@doctrine.orm.entity_manager"
+    tags:
+      - { name: 'app.scraper' }
