@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Exception\ElementPersistingException;
+use App\Exception\InvalidScraperException;
 use App\Manager\ScraperManager;
 use App\Model\Interfaces\ScraperInterface;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
@@ -38,7 +40,7 @@ class ScraperCommand extends Command
     {
         try {
             $this->scraperManager->scrape($input->getOption('scraper'), (int) $input->getOption('number-of-pages'), (int) $input->getOption('start-page'));
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidScraperException $exception) {
             $output->write($exception);
         } catch (\Exception $exception) {
             $output->write($exception);

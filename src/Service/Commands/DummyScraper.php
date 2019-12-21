@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Commands;
 
+use App\Exception\ElementPersistingException;
 use App\Manager\CarManager;
 use App\Manager\EquipmentManager;
 use App\Manager\ImagesManager;

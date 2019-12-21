@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Manager;
 
 use App\Entity\Scrapers;
+use App\Exception\InvalidScraperException;
 use App\Model\Interfaces\ScraperInterface;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 
@@ -42,7 +43,7 @@ class ScraperManager extends AbstractBaseManager
             }
         }
 
-        throw new InvalidArgumentException(sprintf('Any scraper found with key %s', $scraperStrategy));
+        throw new InvalidScraperException(sprintf('Any scraper found with key %s', $scraperStrategy));
     }
 
     public function getScrapers()
