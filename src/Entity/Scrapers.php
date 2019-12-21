@@ -23,7 +23,7 @@ class Scrapers
     private $keyName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $lastScrapDate;
 
@@ -119,5 +119,21 @@ class Scrapers
     public function getCars(): ?iterable
     {
         return $this->cars;
+    }
+
+    public function resetLastScrapedElements()
+    {
+        $this->lastScrapeElements = 0;
+    }
+
+    public function increaseLastScrapeElements()
+    {
+        $this->lastScrapeElements++;
+        $this->increaseTotalScrapeElements();
+    }
+
+    public function increaseTotalScrapeElements()
+    {
+        $this->scrapedElements++;
     }
 }

@@ -19,62 +19,62 @@ class Car
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $price;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $fuel;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $millage;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $registeredAt;
 
     /**
-     * @ORM\Column(type="string", length=35)
+     * @ORM\Column(type="string", length=35, nullable=true)
      */
     private $power;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $bodyType;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $colorExterior;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $emission;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $transmission;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $externalId;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, unique=true)
      */
     private $externalUrl;
 
@@ -135,7 +135,7 @@ class Car
     /**
      * @return mixed
      */
-    public function getPrice(): float
+    public function getPrice(): string
     {
         return $this->price;
     }
@@ -143,7 +143,7 @@ class Car
     /**
      * @param mixed $price
      */
-    public function setPrice(float $price): void
+    public function setPrice(string $price): void
     {
         $this->price = $price;
     }
@@ -167,7 +167,7 @@ class Car
     /**
      * @return mixed
      */
-    public function getMillage(): float
+    public function getMillage(): string
     {
         return $this->millage;
     }
@@ -175,7 +175,7 @@ class Car
     /**
      * @param mixed $millage
      */
-    public function setMillage(float $millage): void
+    public function setMillage(string $millage): void
     {
         $this->millage = $millage;
     }
@@ -351,7 +351,7 @@ class Car
 
     public function removeImage(Images $image = null)
     {
-        if (!$this->images->contains($image)) {
+        if ($this->images->contains($image)) {
             $this->images->removeElement($image);
         }
     }

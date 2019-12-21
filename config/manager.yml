@@ -2,5 +2,21 @@ services:
   app.scraper.manager:
     class: App\Manager\ScraperManager
     public: true
+    arguments: [App\Entity\Scrapers, "@doctrine.orm.entity_manager"]
     tags:
       - { name: 'app.scraper.manager' }
+
+  app.car.manager:
+    class: App\Manager\CarManager
+    public: true
+    arguments: [App\Entity\Car, "@doctrine.orm.entity_manager"]
+
+  app.images.manager:
+    class: App\Manager\ImagesManager
+    public: true
+    arguments: [App\Entity\Images, "@doctrine.orm.entity_manager"]
+
+  app.equipment.manager:
+    class: App\Manager\EquipmentManager
+    public: true
+    arguments: [App\Entity\Equipment, "@doctrine.orm.entity_manager"]

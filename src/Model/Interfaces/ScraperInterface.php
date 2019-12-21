@@ -11,15 +11,15 @@ interface ScraperInterface
     public function scrape(int $numberOfPages = 5, int $startPage = 1);
 
     // This function check if car scraped has the valid attributes
-    public function isValidCar(iterable $scrapedObject);
+    public function isValidCar();
 
     public function processElement(string $url);
-
-    // Format data to persist in database
-    public function formatData(iterable $scrapedObject);
 
     public function getKey(): string ;
 
     // Get elements to scrape from the list page
     public function getElementsToScrape(int $numberOfPages, int $page = 1): void;
+
+    // This function resolve last page scraped, AutoScout has a limit of 20 pages.
+    public function resolveLastPage(int $initialPage, int $numberOfPages);
 }

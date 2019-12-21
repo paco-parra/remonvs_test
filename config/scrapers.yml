@@ -1,14 +1,29 @@
 services:
+  app.abstract_scraper.service:
+    class: App\Service\Commands\AutoScout24Scraper
+    arguments:
+      - "@app.car.manager"
+      - "@app.images.manager"
+      - "@app.equipment.manager"
+      - "@app.scraper.manager"
+
   app.auto_scout_scraper.service:
     class: App\Service\Commands\AutoScout24Scraper
     arguments:
-      - "@doctrine.orm.entity_manager"
+      - "@app.car.manager"
+      - "@app.images.manager"
+      - "@app.equipment.manager"
+      - "@app.scraper.manager"
+
     tags:
       - { name: 'app.scraper' }
 
   app.dummy_scraper.service:
     class: App\Service\Commands\DummyScraper
     arguments:
-      - "@doctrine.orm.entity_manager"
+      - "@app.car.manager"
+      - "@app.images.manager"
+      - "@app.equipment.manager"
+      - "@app.scraper.manager"
     tags:
       - { name: 'app.scraper' }
