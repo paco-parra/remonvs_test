@@ -372,4 +372,13 @@ class Car
         $this->scraper = $scraper;
     }
 
+    public function getMainImage():? Images
+    {
+        if($this->images->first()->isMainImage()) return $this->images->first();
+
+        foreach ($this->images as $image) {
+            if($image->isMainImage()) return $image;
+        }
+        return null;
+    }
 }

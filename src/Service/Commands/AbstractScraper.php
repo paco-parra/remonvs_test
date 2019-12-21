@@ -44,8 +44,9 @@ abstract class AbstractScraper
         $car->setExternalId($dataScraped['external_id']);
         $car->setColorExterior($dataScraped['color_exterior']);
 
-        foreach ($dataScraped['images'] as $item) {
-            $image = $this->imagesManager->createOrRetrieveBy(['key' => 'url', 'value' => $item]);
+        foreach ($dataScraped['images'] as $key => $item) {
+            $main = $key == 0 ? true : false;
+            $image = $this->imagesManager->createOrRetrieveBy(['key' => 'url', 'value' => $item], $main);
             $car->addImage($image);
         }
 
