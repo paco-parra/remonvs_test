@@ -1,10 +1,10 @@
-#Remonvs Technical Test
+# Remonvs Technical Test
 
 This project consist in a scraper system, based in Symfony DomCrawler component.
 Also, Doctrine ORM is installed to store scraped data in MySql database and have a 
 object oriented project.
 
-##Installation
+## Installation
 
 You need have an admin MySql user, by default configured user is *remonvs_paco*, but 
 you can change user configuration in *config/parameters.yaml*
@@ -16,7 +16,7 @@ permissions to create database, you must create database directly in MySql).
 
 * Run *php bin/console doctrine:schema:update --force* to install the database schema.
 
-##Usage
+## Usage
 
 By default this project has two scrapers *autoScout24* and *dummy*(this scraper is for test,
 use this like example)
