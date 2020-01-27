@@ -1,4 +1,4 @@
-# Remonvs Technical Test
+# DOM Crawler scrapping platform
 
 This project consist in a scraper system, based in Symfony DomCrawler component.
 Also, Doctrine ORM is installed to store scraped data in MySql database and have a 
